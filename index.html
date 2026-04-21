@@ -1,26 +1,165 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <title>Lab Cookies</title>
+<meta charset="UTF-8">
+<title>Cookie Examples</title>
 
-    <script>
-        // Setare cookies
-        document.cookie = "session=test GDPR";
-        document.cookie = "favorite_task=collect Data";
+<style>
+  body { font-family: Arial; margin: 20px; }
+  section { margin-bottom: 30px; }
+  code { display: block; background: #f4f4f4; padding: 10px; }
+</style>
 
-        // Funcție pentru afișare cookies
-        function alertCookie() {
-            alert(document.cookie);
-        }
-    </script>
+<script>
+// ================= EXAMPLE 1 -Simple usage=================
+function setupExample1() {
+  document.cookie = "name=Oeschger; SameSite=None; Secure";
+  document.cookie = "favorite_food=tripe; SameSite=None; Secure";
+
+  document.getElementById("show1").onclick = () => {
+    document.getElementById("output1").textContent = document.cookie;
+  };
+
+  document.getElementById("clear1").onclick = () => {
+    document.getElementById("output1").textContent = "";
+  };
+}
+
+// ================= EXAMPLE 2 =================
+function setupExample2() {
+  document.cookie = "test1=Hello; SameSite=None; Secure";
+  document.cookie = "test2=World; SameSite=None; Secure";
+
+  document.getElementById("show2").onclick = () => {
+    const value = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("test2="))
+      ?.split("=")[1];
+
+    document.getElementById("output2").textContent = value;
+  };
+
+  document.getElementById("clear2").onclick = () => {
+    document.getElementById("output2").textContent = "";
+  };
+}
+
+// ================= EXAMPLE 3 =================
+function setupExample3() {
+  document.getElementById("doOnce").onclick = () => {
+    if (!document.cookie.split("; ").find(row => row.startsWith("myOnceCookie"))) {
+      document.cookie = "myOnceCookie=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+      document.getElementById("output3").textContent = "Do something here!";
+    }
+  };
+
+  document.getElementById("clear3").onclick = () => {
+    document.getElementById("output3").textContent = "";
+  };
+}
+
+// ================= EXAMPLE 4 =================
+function setupExample4() {
+  document.getElementById("reset").onclick = () => {
+    document.cookie = "myOnceCookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
+    document.getElementById("output4").textContent = "Reset!";
+  };
+
+  document.getElementById("clear4").onclick = () => {
+    document.getElementById("output4").textContent = "";
+  };
+}
+
+// ================= EXAMPLE 5 =================
+function setupExample5() {
+  document.cookie = "reader=1; SameSite=None; Secure";
+
+  document.getElementById("check5").onclick = () => {
+    const exists = document.cookie
+      .split(";")
+      .some(item => item.trim().startsWith("reader="));
+
+    document.getElementById("output5").textContent =
+      exists ? 'Cookie "reader" există' : 'Cookie "reader" NU există';
+  };
+
+  document.getElementById("clear5").onclick = () => {
+    document.getElementById("output5").textContent = "";
+  };
+}
+
+// ================= EXAMPLE 6 =================
+function setupExample6() {
+  document.getElementById("check6").onclick = () => {
+    if (document.cookie.split(";").some(item => item.includes("reader=1"))) {
+      document.getElementById("output6").textContent =
+        'Cookie "reader" are valoarea 1';
+    }
+  };
+
+  document.getElementById("clear6").onclick = () => {
+    document.getElementById("output6").textContent = "";
+  };
+}
+
+// INIT
+window.onload = function() {
+  setupExample1();
+  setupExample2();
+  setupExample3();
+  setupExample4();
+  setupExample5();
+  setupExample6();
+};
+</script>
+
 </head>
 
 <body>
-    <h1>Bine ai venit la lab</h1>
 
-    <button onclick="alertCookie()">
-        Show cookies
-    </button>
+<h1>Cookie Examples</h1>
+
+<section>
+<h2>Example 1</h2>
+<button id="show1">Show cookies</button>
+<button id="clear1">Clear</button>
+<code id="output1"></code>
+</section>
+
+<section>
+<h2>Example 2</h2>
+<button id="show2">Show cookie test2</button>
+<button id="clear2">Clear</button>
+<code id="output2"></code>
+</section>
+
+<section>
+<h2>Example 3</h2>
+<button id="doOnce">Do only once</button>
+<button id="clear3">Clear</button>
+<code id="output3"></code>
+</section>
+
+<section>
+<h2>Example 4</h2>
+<button id="reset">Reset cookie</button>
+<button id="clear4">Clear</button>
+<code id="output4"></code>
+</section>
+
+<section>
+<h2>Example 5</h2>
+<button id="check5">Check cookie exists</button>
+<button id="clear5">Clear</button>
+<code id="output5"></code>
+</section>
+
+<section>
+<h2>Example 6</h2>
+<button id="check6">Check cookie value</button>
+<button id="clear6">Clear</button>
+<code id="output6"></code>
+</section>
+
 </body>
 </html>
