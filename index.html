@@ -1,1 +1,26 @@
-<script> document.cookie = "session=test GDPR"; document.cookie = "favorite_task=collect Data"; function alertCookie() { alert(document.cookie); } </script>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab Cookies</title>
+
+    <script>
+        // Setare cookies
+        document.cookie = "session=test GDPR";
+        document.cookie = "favorite_task=collect Data";
+
+        // Funcție pentru afișare cookies
+        function alertCookie() {
+            alert(document.cookie);
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Bine ai venit la lab</h1>
+
+    <button onclick="alertCookie()">
+        Show cookies
+    </button>
+</body>
+</html>
