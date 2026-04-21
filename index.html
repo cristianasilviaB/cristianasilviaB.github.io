@@ -11,12 +11,12 @@
 </style>
 
 <script>
-// ================= EXAMPLE 1 -Simple usage=================
+// ================= EXAMPLE 1 =================
 function setupExample1() {
-  document.cookie = "name=Oeschger; SameSite=None; Secure";
-  document.cookie = "favorite_food=tripe; SameSite=None; Secure";
-
   document.getElementById("show1").onclick = () => {
+    document.cookie = "name=Oeschger; SameSite=Lax";
+    document.cookie = "favorite_food=tripe; SameSite=Lax";
+
     document.getElementById("output1").textContent = document.cookie;
   };
 
@@ -27,10 +27,10 @@ function setupExample1() {
 
 // ================= EXAMPLE 2 =================
 function setupExample2() {
-  document.cookie = "test1=Hello; SameSite=None; Secure";
-  document.cookie = "test2=World; SameSite=None; Secure";
-
   document.getElementById("show2").onclick = () => {
+    document.cookie = "test1=Hello; SameSite=Lax";
+    document.cookie = "test2=World; SameSite=Lax";
+
     const value = document.cookie
       .split("; ")
       .find(row => row.startsWith("test2="))
@@ -48,8 +48,11 @@ function setupExample2() {
 function setupExample3() {
   document.getElementById("doOnce").onclick = () => {
     if (!document.cookie.split("; ").find(row => row.startsWith("myOnceCookie"))) {
-      document.cookie = "myOnceCookie=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure";
+      document.cookie = "myOnceCookie=true; SameSite=Lax";
+
       document.getElementById("output3").textContent = "Do something here!";
+    } else {
+      document.getElementById("output3").textContent = "Deja a fost executat!";
     }
   };
 
@@ -61,7 +64,8 @@ function setupExample3() {
 // ================= EXAMPLE 4 =================
 function setupExample4() {
   document.getElementById("reset").onclick = () => {
-    document.cookie = "myOnceCookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=None; Secure";
+    document.cookie = "myOnceCookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+
     document.getElementById("output4").textContent = "Reset!";
   };
 
@@ -72,9 +76,9 @@ function setupExample4() {
 
 // ================= EXAMPLE 5 =================
 function setupExample5() {
-  document.cookie = "reader=1; SameSite=None; Secure";
-
   document.getElementById("check5").onclick = () => {
+    document.cookie = "reader=1; SameSite=Lax";
+
     const exists = document.cookie
       .split(";")
       .some(item => item.trim().startsWith("reader="));
@@ -91,10 +95,14 @@ function setupExample5() {
 // ================= EXAMPLE 6 =================
 function setupExample6() {
   document.getElementById("check6").onclick = () => {
-    if (document.cookie.split(";").some(item => item.includes("reader=1"))) {
-      document.getElementById("output6").textContent =
-        'Cookie "reader" are valoarea 1';
-    }
+    const hasValue = document.cookie
+      .split(";")
+      .some(item => item.trim() === "reader=1");
+
+    document.getElementById("output6").textContent =
+      hasValue
+        ? 'Cookie "reader" are valoarea 1'
+        : 'Cookie "reader" nu are valoarea 1 sau nu există';
   };
 
   document.getElementById("clear6").onclick = () => {
@@ -112,7 +120,6 @@ window.onload = function() {
   setupExample6();
 };
 </script>
-
 </head>
 
 <body>
